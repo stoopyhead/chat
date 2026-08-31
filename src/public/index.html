@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpsCopilot — AI Kubernetes Operations Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="brand-mark">OC</div>
+        <div class="brand-text">
+          <div class="brand-text__name">OpsCopilot</div>
+          <div class="brand-text__sub">AI Kubernetes Operations Assistant — Llama 3 + k8sgpt-style analysis</div>
+        </div>
+      </div>
+      <div class="topbar__status">
+        <span class="pill" id="modelPill"><span class="pill__dot"></span><span id="modelPillText">checking model…</span></span>
+        <span class="topbar__cluster">mock-cluster · read-only</span>
+      </div>
+    </header>
+
+    <div class="body">
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar__group">
+          <div class="sidebar__label">Cluster &amp; workloads</div>
+          <button class="navcmd" data-cmd="Give me a full health check of the cluster: nodes, namespaces, and workloads.">Cluster health check</button>
+          <button class="navcmd" data-cmd="Identify all unhealthy pods and deployments right now, with likely cause for each.">Unhealthy workloads</button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__label">Root cause &amp; knowledge</div>
+          <button class="navcmd" data-cmd="Investigate the current outage and generate a root cause analysis for the failing payments-api pod.">Generate RCA</button>
+          <button class="navcmd" data-cmd="Search the runbooks/SOPs for CrashLoopBackOff and OOMKilled.">Search SOPs</button>
+          <button class="navcmd" data-cmd="Find historical incidents similar to the payments-api pod that's currently failing.">Similar incidents</button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__label">Alerts &amp; capacity</div>
+          <button class="navcmd" data-cmd="Show the current alerts feed and analyze what's firing and why.">Alerts feed</button>
+          <button class="navcmd" data-cmd="Run a capacity and scaling analysis across the cluster.">Capacity &amp; scaling</button>
+        </div>
+        <div class="sidebar__group sidebar__group--flow">
+          <div class="sidebar__label">Workflow</div>
+          <div class="flow">
+            <span class="flow__step">DETECT</span>
+            <span class="flow__step">DIAGNOSE</span>
+            <span class="flow__step">EXPLAIN</span>
+            <span class="flow__step">RECOMMEND</span>
+          </div>
+        </div>
+      </nav>
+
+      <main class="chat" id="chat">
+        <div class="msg msg--bot">
+          <div class="msg__avatar msg__avatar--bot">OC</div>
+          <div class="msg__col">
+            <div class="msg__label">OpsCopilot</div>
+            <div class="card card--intro">
+              I'm an AI assistant for monitoring, troubleshooting, and diagnosing this Kubernetes
+              environment (mock data — no kubeconfig, cluster credentials, or Teams connection is used).
+              Ask me anything — a specific question about the cluster, a general DevOps question
+              like "what is Grafana?", or just say hi. Pick something from the left to get started.
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <form class="composer" id="composer">
+      <input
+        class="composer__input"
+        id="input"
+        type="text"
+        autocomplete="off"
+        placeholder="Ask about cluster health, an unhealthy pod, an RCA, a runbook, or anything DevOps…"
+        autofocus
+      />
+      <button class="composer__send" type="submit">
+        <span>Send</span>
+      </button>
+    </form>
+  </div>
+
+  <script src="chat.js"></script>
+</body>
+</html>
